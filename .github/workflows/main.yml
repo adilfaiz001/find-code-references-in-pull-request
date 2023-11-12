@@ -18,7 +18,7 @@ jobs:
           project-key: default
           environment-key: test
           access-token: ${{ secrets.LD_ACCESS_TOKEN }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.REPO_TOKEN }}
           base-uri: https://app.launchdarkly.com
           max-flags: 200
       - name: Find flags summary
@@ -41,11 +41,11 @@ jobs:
         if: ${{ steps.find-flags.outputs.any-changed == 'true' && github.actor != 'dependabot[bot]' }}
         run: gh pr edit $PR_NUMBER --add-label ld-flags
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
       - name: Remove label
         if: ${{ steps.find-flags.outputs.any-changed == 'false' && github.actor != 'dependabot[bot]' }}
         run: gh pr edit $PR_NUMBER --remove-label ld-flags
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
