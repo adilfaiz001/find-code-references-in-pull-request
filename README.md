@@ -1,4 +1,4 @@
-# LaunchDarkly Find Code References in Pull Request GitHub action
+# LaunchDarkly Find Code References in Pull Request GitHub action --
 
 Adds a comment to a pull request (PR) whenever a feature flag reference is found in a PR diff.
 
@@ -21,6 +21,7 @@ permissions:
 Basic:
 
 <!-- TODO update example repo name changes -->
+
 ```yaml
 on: pull_request
 
@@ -44,6 +45,7 @@ jobs:
 Use outputs in workflow:
 
 <!-- TODO update example repo name changes -->
+
 ```yaml
 on: pull_request
 
@@ -89,32 +91,36 @@ You can find more information on aliases at [launchdarkly/ld-find-code-refs](htt
 This action does not support monorepos or searching for flags across LaunchDarkly projects.
 
 <!-- action-docs-inputs -->
+
 ### Inputs
 
-| parameter | description | required | default |
-| --- | --- | --- | --- |
-| repo-token | Token to use to authorize comments on PR. Typically the `GITHUB_TOKEN` secret or equivalent `github.token`. | `true` |  |
-| access-token | LaunchDarkly access token | `true` |  |
-| project-key | LaunchDarkly project key | `false` | default |
-| environment-key | LaunchDarkly environment key for creating flag links | `false` | production |
-| placeholder-comment | Comment on PR when no flags are found. If flags are found in later commits, this comment will be updated. | `false` | false |
-| include-archived-flags | Scan for archived flags | `false` | true |
-| max-flags | Maximum number of flags to find per PR | `false` | 5 |
-| base-uri | The base URI for the LaunchDarkly server. Most users should use the default value. | `false` | https://app.launchdarkly.com |
+| parameter              | description                                                                                                 | required | default                      |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------- | -------- | ---------------------------- |
+| repo-token             | Token to use to authorize comments on PR. Typically the `GITHUB_TOKEN` secret or equivalent `github.token`. | `true`   |                              |
+| access-token           | LaunchDarkly access token                                                                                   | `true`   |                              |
+| project-key            | LaunchDarkly project key                                                                                    | `false`  | default                      |
+| environment-key        | LaunchDarkly environment key for creating flag links                                                        | `false`  | production                   |
+| placeholder-comment    | Comment on PR when no flags are found. If flags are found in later commits, this comment will be updated.   | `false`  | false                        |
+| include-archived-flags | Scan for archived flags                                                                                     | `false`  | true                         |
+| max-flags              | Maximum number of flags to find per PR                                                                      | `false`  | 5                            |
+| base-uri               | The base URI for the LaunchDarkly server. Most users should use the default value.                          | `false`  | https://app.launchdarkly.com |
+
 <!-- action-docs-inputs -->
 
 <!-- action-docs-outputs -->
+
 ### Outputs
 
-| parameter | description |
-| --- | --- |
-| any-modified | Returns true if any flags have been added or modified in PR |
-| modified-flags | Space-separated list of flags added or modified in PR |
-| modified-flags-count | Number of flags added or modified in PR |
-| any-removed | Returns true if any flags have been removed in PR |
-| removed-flags | Space-separated list of flags removed in PR |
-| removed-flags-count | Number of flags removed in PR |
-| any-changed | Returns true if any flags have been changed in PR |
-| changed-flags | Space-separated list of flags changed in PR |
-| changed-flags-count | Number of flags changed in PR |
+| parameter            | description                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| any-modified         | Returns true if any flags have been added or modified in PR |
+| modified-flags       | Space-separated list of flags added or modified in PR       |
+| modified-flags-count | Number of flags added or modified in PR                     |
+| any-removed          | Returns true if any flags have been removed in PR           |
+| removed-flags        | Space-separated list of flags removed in PR                 |
+| removed-flags-count  | Number of flags removed in PR                               |
+| any-changed          | Returns true if any flags have been changed in PR           |
+| changed-flags        | Space-separated list of flags changed in PR                 |
+| changed-flags-count  | Number of flags changed in PR                               |
+
 <!-- action-docs-outputs -->
