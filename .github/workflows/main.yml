@@ -15,10 +15,10 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: find-flags
         with:
-          project-key: demo-dan-042021-2
-          environment-key: development
+          project-key: default
+          environment-key: test
           access-token: ${{ secrets.LD_ACCESS_TOKEN }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.REPO_TOKEN }}
           base-uri: https://app.launchdarkly.com
           max-flags: 200
       - name: Find flags summary
@@ -37,15 +37,15 @@ jobs:
           for flag in ${{ steps.find-flags.outputs.removed-flags }}; do
             echo "$flag was removed"
           done
-      - name: Add label
-        if: ${{ steps.find-flags.outputs.any-changed == 'true' && github.actor != 'dependabot[bot]' }}
-        run: gh pr edit $PR_NUMBER --add-label ld-flags
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-      - name: Remove label
-        if: ${{ steps.find-flags.outputs.any-changed == 'false' && github.actor != 'dependabot[bot]' }}
-        run: gh pr edit $PR_NUMBER --remove-label ld-flags
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+      # - name: Add label
+      #   if: ${{ steps.find-flags.outputs.any-changed == 'true' && github.actor != 'dependabot[bot]' }}
+      #   run: gh pr edit $PR_NUMBER --add-label ld-flags
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      #     PR_NUMBER: ${{ github.event.pull_request.number }}
+      # - name: Remove label
+      #   if: ${{ steps.find-flags.outputs.any-changed == 'false' && github.actor != 'dependabot[bot]' }}
+      #   run: gh pr edit $PR_NUMBER --remove-label ld-flags
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      #     PR_NUMBER: ${{ github.event.pull_request.number }}
